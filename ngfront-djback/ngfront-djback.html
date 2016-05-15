@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>NG-Front, DJ-Back: Rapid full-stack development with AngularJS & Python/Django</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Marcel Chastain">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+        div#multicolumn1 {
+            -moz-column-count: 2;
+            -moz-column-gap: 50%;
+            -webkit-column-count: 2;
+            -webkit-column-gap: 50%;
+            column-count: 3;
+            column-gap: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section id="slide1">
+            <h1>NG-Front, DJ-Back</h1>
+            <h3>Rapid full-stack development with AngularJS & Python/Django</h3>
+            <p>
+                <small>@MarcelChastain / @LADjango</small>
+            </p>
+        </section>
+
+        <section id="step1-title">
+            <h1>Step 1: Setting up Angular/Ionic Project</h1>
+            <h3></h3>
+            <p>
+                <small></small>
+            </p>
+        </section>
+
+        <section id="frontend-basics">
+            <h1>Dependencies and Package Management</h1>
+            <h3>Bower, Node, Ionic and NPM</h3>
+            <pre><code data-trim contenteditable>
+$ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+$ sudo apt-get install nodejs
+$ sudo npm install -g npm
+$ sudo npm install -g gulp-cli bower ionic
+            </code></pre>
+        </section>
+
+        <section id="ionic-create">
+            <h2>Creating ionic project</h2>
+            <pre><code data-trim contenteditable>
+$ ionic start mobile-grub blank
+Creating Ionic app mobile-grub based on blank project
+Downloading: https://github.com/driftyco/ionic-app-base/archive/master.zip
+[=============================]  100%  0.0s
+Downloading: https://github.com/driftyco/ionic-starter-blank/archive/master.zip
+[=============================]  100%  0.0s
+Updated the hooks directory to have execute permissions
+Update Config.xml
+Initializing cordova project
+Adding in iOS application by default
+Added ios platform
+
+Your Ionic project is ready to go!
+            </code></pre>
+        </section>
+
+        <section id="ionic-platform-setup">
+            <h2>Adding target platforms</h2>
+            <pre><code data-trim contenteditable>
+$ cd mobile-grub/
+$ ionic platform remove ios
+Updated the hooks directory to have execute permissions
+Removing platform from package.json file
+
+$ ionic platform add browser
+Updated the hooks directory to have execute permissions
+Downloading Default Ionic Resources
+Downloading: https://github.com/driftyco/ionic-default-resources/archive/master.zip
+[=============================]  100%  0.0s
+Done adding default Ionic resources
+Adding icons for platform: android
+Adding browser project...
+Running command: /Users/mchastain/.cordova/lib/npm_cache/cordova-browser/4.1.0/package/bin/create /Users/mchastain/code/ngfront-djback/mobile-grub/platforms/browser com.ionicframework.mobilegrub789313 mobile-grub
+Creating Browser project. Path: platforms/browser
+Installing "cordova-plugin-console" for browser
+Installing "cordova-plugin-device" for browser
+Installing "cordova-plugin-splashscreen" for browser
+Installing "cordova-plugin-statusbar" for browser
+Installing "cordova-plugin-whitelist" for browser
+Installing "ionic-plugin-keyboard" for browser
+Running command: /Users/mchastain/code/ngfront-djback/mobile-grub/hooks/after_prepare/010_add_platform_class.js /Users/mchastain/code/ngfront-djback/mobile-grub
+add to body class: platform-browser
+Saving platform to package.json file
+            </code></pre>
+        </section>
+
+        <section id="ionic-serve">
+            <h2>Ionic Serve</h2>
+            <p>Run the built-in http server</p>
+            <pre><code data-trim contenteditable>
+$ ionic serve
+
+The port 35729 was taken on the host localhost - using port 35730 instead
+Running live reload server: undefined
+Watching: 0=www/**/*, 1=!www/lib/**/*
+Running dev server:  http://localhost:8100
+Ionic server commands, enter:
+  restart or r to restart the client app from the root
+  goto or g and a url to have the app navigate to the given url
+  consolelogs or c to enable/disable console log output
+  serverlogs or s to enable/disable server log output
+  quit or q to shutdown the server and exit
+            </code></pre>
+        </section>
+
+
+        <section id="ionic-project-folder-structure">
+            <h2>Project Folder Structure</h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step1-file-structure.jpg" alt="">
+            </a>
+        </section>
+
+
+        <section id="ionic-app-name">
+            <h2>Ionic App Name</h2>
+            <pre><code>
+// in mobile-grub/www/js/app.js:
+angular.module('mobileGrub', ['ionic'])
+            </code></pre>
+            <pre><code>
+// in mobile-grub/www/index.html:
+&lt;body ng-app="mobileGrub"&gt;
+            </code></pre>
+
+            <p>step1-1</p>
+        </section>
+
+        <section id="step2">
+            <h1>Step 2</h1>
+            <h3>Creating our first route, view, and controller</h3>
+            <pre><code>$ git checkout step2</code></pre>
+        </section>
+
+        <section id="step2-1">
+            <h2>Step2-1: Creating a new route</h2>
+            <pre><code data-trim contenteditable>
+  // added to mobile-grub/www/js/app.js
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl'
+      });
+
+    $urlRouterProvider.otherwise('/home');
+  });
+            </code></pre>
+        </section>
+
+        <section id="step2-2">
+            <h2>Step2-2: Creating a new Controller</h2>
+            <p>Create a new file in the js folder called "controllers.js"</p>
+            <pre><code data-trim contenteditable>
+// controller.js
+angular.module('mobileGrub')
+.controller('HomeCtrl',
+  function($scope) {
+    $scope.intro = 'Welcome to Mobile Grub!';
+})
+;
+            </code></pre>
+            <p>Next, add it to the index.html</p>
+            <pre><code>
+    &lt;script src="js/app.js"&gt;&lt;/script&gt;
+    &lt;script src="js/controllers.js"&gt;&lt;/script&gt;
+
+            </code></pre>
+        </section>
+
+
+        <section id="step2-3">
+            <h2>Step2-3</h2>
+            <p>Update index.html</p>
+            <pre><code data-trim contenteditable>
+&lt;body ng-app="mobileGrub"&gt;
+    &lt;ion-nav-bar&gt;&lt;/ion-nav-bar&gt;
+    &lt;ion-nav-view&gt;&lt;/ion-nav-view&gt;
+&lt;/body&gt;
+            </code></pre>
+
+            <p>And create views/home.html</p>
+            <pre><code data-trim contenteditable>
+&lt;ion-view view-title="Home"&gt;
+  &lt;ion-content&gt;
+    &lt;div&gt;home.html&lt;div&gt;
+    {{ intro }}
+  &lt;/ion-content&gt;
+&lt;ion-view&gt;
+            </code></pre>
+        </section>
+
+
+        <section id="step2-file-structure">
+            <h2>File Structure</h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step2-file-structure.jpg" alt="">
+            </a>
+        </section>
+
+
+        <section id="step3">
+            <h1>Step3</h1>
+            <h3>Setting up the backend</h3>
+            <p>
+                <small></small>
+            </p>
+        </section>
+
+        <section id="step3-1">
+            <h2>Step3-1: Installing yeoman</h2>
+            <p>Yeoman lets us use application 'generators', in this case to create a new django app</p>
+            <pre><code data-trim contenteditable>
+$ sudo npm install yo generator-djangospa -g
+/usr/local/bin/yo -&gt; /usr/local/lib/node_modules/yo/lib/cli.js
+
+&gt; spawn-sync@1.0.15 postinstall /usr/local/lib/node_modules/generator-djangospa/node_modules/spawn-sync
+&gt; node postinstall
+
+
+&gt; yo@1.7.1 postinstall /usr/local/lib/node_modules/yo
+&gt; yodoctor
+
+
+Yeoman Doctor
+Running sanity checks on your system
+
+✔ Global configuration file is valid
+✔ NODE_PATH matches the npm root
+✔ Node.js version
+✔ No .bowerrc file in home directory
+✔ No .yo-rc.json file in home directory
+✔ npm version
+
+Everything looks all right!
+is-promise@2.1.0 node_modules/yo/node_modules/is-promise -&gt; node_modules/generator-djangospa/node_modules/is-promise
+rx@4.1.0 node_modules/yo/node_modules/rx -&gt; node_modules/generator-djangospa/node_modules/rx
+/usr/local/lib
+            </code></pre>
+        </section>
+
+
+        <section id="step3-2">
+            <h2>Install VirtualEnv</h2>
+            <p>VirtualEnv allows us to install python versions and packages without sudo and without affecting the underlying system's packages</p>
+            <pre><code data-trim contenteditable>
+$ pip install virtualenv
+Collecting virtualenv
+  Downloading virtualenv-15.0.1-py2.py3-none-any.whl (1.8MB)
+    100% |████████████████████████████████| 1.8MB 231kB/s
+Installing collected packages: virtualenv
+Successfully installed virtualenv-15.0.1
+
+            </code></pre>
+        </section>
+
+        <section id="step3-3">
+            <h2>Activate VirtualEnv</h2>
+            <pre><code data-trim contenteditable>
+$ virtualenv env
+New python executable in /Users/mchastain/code/ngfront-djback/env/bin/python
+Installing setuptools, pip, wheel...done.
+
+$ source env/bin/activate
+$ pip install "django>=1.9", djangorestframework, pillow, django-cors-headers
+Collecting django>=1.9
+  Using cached Django-1.9.6-py2.py3-none-any.whl
+Collecting djangorestframework
+  Using cached djangorestframework-3.3.3-py2.py3-none-any.whl
+Collecting django-cors-headers
+  Downloading django-cors-headers-1.1.0.tar.gz
+Installing collected packages: django, djangorestframework, pillow, django-cors-headers
+Successfully installed django-1.9.6 djangorestframework-3.3.3, pillow-3.2.0, django-cors-headers-1.1.0
+
+            </code></pre>
+        </section>
+
+        <section id="step3-8">
+            <h2>Run Yeoman Generator</h2>
+            <pre><code data-trim contenteditable>
+$ yo djangospa
+
+     _-----_
+    |       |    .--------------------------.
+    |--(o)--|    | Welcome to the (awesome) |
+   `---------´   |  single page application |
+    ( _´U`_ )    |   generator for Django.  |
+    /___A___\    '--------------------------'
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
+
+? Your project name: mobile-grub-back
+? Project description: Mobile Grub Backend
+? Initial application name: menu
+? Include login page? No
+? Which django version you will be using: 1.9
+? Which theme do you want to use: Dark theme
+? License: MIT
+            </code></pre>
+        </section>
+
+        <section id="step4">
+            <h1>Step 4</h1>
+            <h3>Backend data</h3>
+            <p>
+                <small></small>
+            </p>
+        </section>
+
+        <section id="step4-1">
+            <h2></h2>
+            <p>Create a superuser and run dev server</p>
+            <pre><code data-trim contenteditable>
+$ cd mobile-grub-back/
+$ python manage.py migrate --run-syncdb
+
+$ python manage.py createsuperuser
+Username (leave blank to use 'mchastain'): admin
+Email address: marcel.chastain@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+
+$ python manage.py runserver 0.0.0.0:8001
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 05, 2016 - 21:11:13
+Django version 1.9.6, using settings 'mobile-grub-back.settings'
+Starting development server at http://0.0.0.0:8001/
+Quit the server with CONTROL-C.
+
+            </code></pre>
+        </section>
+
+        <section id="step4-2">
+            <h2></h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step4-admin-login.jpg" alt="">
+            </a>
+        </section>
+
+
+        <section id="step4-3">
+            <h2>Creating Models</h2>
+            <pre><code data-trim contenteditable>
+from django.db import models
+
+class Category(models.Model):
+    name = models.CharField(max_length=150)
+    created = models.DateTimeField(auto_now_add=True)
+    description = models.TextField()
+
+    class Meta:
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
+
+class MenuItem(models.Model):
+    name = models.CharField(max_length=150)
+    description = models.TextField()
+    price = models.DecimalField(decimal_places=2, max_digits=5)
+    image = models.ImageField(upload_to='uploads/')
+    category = models.ForeignKey('menu.Category')
+
+    class Meta:
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return self.name
+            </code></pre>
+        </section>
+
+        <section id="step4-4">
+            <h2>Create database tables</h2>
+            <pre><code data-trim contenteditable>
+$ python manage.py makemigrations menu
+Migrations for 'menu':
+  0001_initial.py:
+    - Create model Category
+    - Create model MenuItem
+
+$ python manage.py migrate menu
+Operations to perform:
+  Apply all migrations: menu
+Running migrations:
+  Rendering model states... DONE
+  Applying menu.0001_initial... OK
+            </code></pre>
+        </section>
+
+        <section id="step4-5">
+            <h2>Create objects via admin</h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step4-admin-create.jpg" alt="">
+            </a>
+        </section>
+
+        <section id="step4-6">
+            <h2>...or load prepared data</h2>
+            <p>$DESCRIPTION$</p>
+            <pre><code data-trim contenteditable>
+$ python manage.py loaddata menu_items
+Installed 13 object(s) from 1 fixture(s)
+
+            </code></pre>
+        </section>
+
+        <section id="step5">
+            <h1>Step 5</h1>
+            <h3>Setting up the REST API</h3>
+            <p>
+                <small>Django-rest-framework</small>
+            </p>
+        </section>
+
+
+        <section id="step5-1">
+            <h2>Django-REST-Framework (DRF)</h2>
+            <p>Provides all the tools we need to make a nifty REST api</p>
+            <ul>
+                <li>serializers: render complex data objects in a format we like (JSON, etc)</li>
+                <li>routing: intelligent urls</li>
+                <li>requests: PUT, PATCH, GET, POST, etc</li>
+                <li>views and viewsets: customize the behavior of our endpoints</li>
+            </ul>
+        </section>
+        <section id="step5-2">
+            <h2>Serializer</h2>
+            <p>Define how we data is formatted between API and backend</p>
+            <pre><code data-trim contenteditable>
+# menu/serializers.py
+from rest_framework import serializers
+from menu.models import MenuItem, Category
+
+class MenuItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuItem
+        fields = ('id', 'created', 'name', 'description', 'image')
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'created', 'name', 'description')
+
+            </code></pre>
+        </section>
+
+        <section id="step5-3">
+            <h2>ViewSets</h2>
+            <p>Collections of views that tie a url to a serializer</p>
+            <pre><code data-trim contenteditable>
+# menu/views.py
+from menu.models import MenuItem, Category
+from menu.serializers import MenuItemSerializer, CategorySerializer
+from rest_framework import viewsets
+
+# viewsets automatically handle GET, POST, DELETE, etc
+class MenuItemViewSet(viewsets.ModelViewSet):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+            </code></pre>
+        </section>
+
+        <section id="step5-4">
+            <h2>URLs and Routes</h2>
+            <p>Intelligent, easy routing</p>
+            <pre><code data-trim contenteditable>
+# menu/urls.py
+from django.conf.urls import url, include
+from menu import views
+from rest_framework.routers import DefaultRouter
+
+# Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r'menuitems', views.MenuItemViewSet)
+router.register(r'categories', views.CategoryViewSet)
+
+# The API URLs are now determined automatically by the router.
+urlpatterns = [
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+            </code></pre>
+        </section>
+
+        <section id="step5-5">
+            <h2>Voila! A working, browsable API</h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step5-api.jpg" alt="">
+            </a>
+        </section>
+
+        <section id="step6">
+            <h1>Step 6</h1>
+            <h3>Wiring up our app to the API</h3>
+            <p>
+                <small>Angular $http</small>
+            </p>
+        </section>
+
+        <section id="step6-1">
+            <h2>Add $http call to Controller</h2>
+            <p></p>
+            <pre><code data-trim contenteditable>
+// www/js/controllers.js
+  .controller('HomeCtrl',
+    function ($scope, $http) {
+      $scope.intro = 'Welcome to Mobile Grub!';
+
+      $scope.categories = [];
+      $http({url: 'http://localhost:8001/api/categories/'})
+        .then(function (result) {
+          angular.copy(result.data, $scope.categories);
+        });
+    })
+            </code></pre>
+        </section>
+
+        <section id="step6-2">
+            <h2>Modify List View</h2>
+            <p></p>
+            <pre><code data-trim contenteditable>
+// home.html
+
+&lt;ion-view view-title=&quot;{{ intro }}&quot;&gt;
+  &lt;ion-content&gt;
+    &lt;ul class=&quot;card&quot;&gt;
+      &lt;a class=&quot;item&quot; ui-sref="category({id: category.id })" ng-repeat=&quot;category in categories&quot;&gt;
+        {{ category.name }}
+      &lt;/a&gt;
+    &lt;/ul&gt;
+  &lt;/ion-content&gt;
+&lt;/ion-view&gt;
+
+            </code></pre>
+        </section>
+
+        <section id="step6-3">
+            <h2>Add a route for a category detail</h2>
+            <pre><code data-trim contenteditable>
+// js/app.js
+  .state('category', {
+    url: '/category/:id',   // 'id' is now captured to $stateParams
+    controller: 'CategoryCtrl',
+    templateUrl: 'views/category.html',
+    resolve: {
+      category: function($http, $stateParams) {
+        return $http({url: 'http://localhost:8001/api/category/'+$stateParams.id})
+      }
+    }
+  })
+            </code></pre>
+        </section>
+
+        <section id="step6-4">
+            <h2>Create Controller and View</h2>
+            <pre><code data-trim contenteditable>
+// js/controllers.js
+  .controller('CategoryCtrl',
+    function ($scope, category) {
+      // this came from the 'resolve' in routes
+      $scope.category = category;
+    })
+
+// views/category.html
+&lt;ion-view view-title="{{ category.name }}"&gt;
+  &lt;ion-content&gt;
+    {{ category.description }}
+
+    &lt;div class="list"&gt;
+      &lt;li class="item item-thumbnail-left"
+                ng-repeat="menuItem in category.menu_items"&gt;
+        &lt;img ng-src="http://127.0.0.1:8001/{{ menuItem.image }}"&gt;
+        &lt;h2&gt;{{menuItem.name}}&lt;/h2&gt;
+        &lt;p&gt;{{ menuItem.description}}&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/div&gt;
+  &lt;/ion-content&gt;
+&lt;/ion-view&gt;
+
+            </code></pre>
+        </section>
+
+
+        <section id="step6-5">
+            <h2>Wired up!</h2>
+            <a class="image" href="" target="_blank">
+                <img width="" height="" src="images/step6-list-view.jpg" alt="">
+            </a>
+        </section>
+
+        <section id="step7">
+            <h1>Recap</h1>
+            <ul>
+                <li>Setup javascript and python package managers</li>
+                <li>Initialized ionic/angular app and ran dev server</li>
+                <li>Initialized Django app and ran dev server</li>
+                <li>Setup backend models and used the admin site to create objects</li>
+                <li>Setup Django-REST-Framework serializers, viewsets and routes</li>
+                <li>Wired up angular to talk to our API and display data</li>
+                <li>Created a detail state & view</li>
+            </ul>
+        </section>
+
+        <section id="step8">
+            <h1>What's next?</h1>
+        </section>
+
+        <section id="step8-1">
+            <h2>Backend</h2>
+            <ul>
+                <li>Add authentication</li>
+                <li>Permissions</li>
+                <li>Better image handling</li>
+            </ul>
+        </section>
+
+        <section id="step8-2">
+            <h2>Frontend</h2>
+            <ul>
+                <li>Use ngResource or Restangular instead of $http</li>
+                <li>Add login page (if necessary)</li>
+                <li>Add edit functionality</li>
+            </ul>
+        </section>
+
+        <section id="step9">
+            <h2>Resources</h2>
+            <ul>
+                <li>Django: <a href="https://www.djangoproject.com/">djangoproject.com</a></li>
+                <li>Angular: <a href="https://angularjs.org/">angularjs.org</a></li>
+                <li>Ionic Framework: <a href="http://ionicframework.com/">ionicframework.com</a></li>
+                <li>Django-REST-Framework: <a href="http://www.django-rest-framework.org/">django-rest-framework.org</a></li>
+                <li>Restangular: <a href="https://github.com/mgonto/restangular">github.com/mgonto/restangular</a></li>
+                <li>SoCal AngularJS Meetup: <a href="http://www.meetup.com/socal-angular/events/229433424/">meetup.com/socal-angular/</a></li>
+                <li>LA Django Meetup: <a href="http://www.meetup.com/ladjango/">meetup.com/ladjango/</a></li>
+            </ul>
+        </section>
+    </div>
+
+</div>
+
+
+
+
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
